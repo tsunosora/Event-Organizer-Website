@@ -9,6 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 require_once get_stylesheet_directory() . '/inc/customizer-brand.php';
 require_once get_stylesheet_directory() . '/inc/customizer-about.php';
 
+// Demo content importer
+require_once get_stylesheet_directory() . '/inc/demo-importer.php';
+
 /**
  * Enqueue parent + child styles, plus Google Fonts.
  */
