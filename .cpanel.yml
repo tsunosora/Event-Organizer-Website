@@ -1,0 +1,22 @@
+---
+deployment:
+  tasks:
+    # Path target — folder theme WordPress di hosting
+    - export DEPLOYPATH=/home/abadiev3/public_html/wp-content/themes/event-organize/
+    # Buat folder kalau belum ada
+    - /bin/mkdir -p $DEPLOYPATH
+    # Copy semua file dari repo ke folder theme (kecuali .git dan .cpanel.yml)
+    - /bin/cp -R style.css $DEPLOYPATH
+    - /bin/cp -R functions.php $DEPLOYPATH
+    - /bin/cp -R header-ae.php $DEPLOYPATH
+    - /bin/cp -R footer-ae.php $DEPLOYPATH
+    - /bin/cp -R home.php $DEPLOYPATH
+    - /bin/cp -R single.php $DEPLOYPATH
+    - /bin/cp -R template-home.php $DEPLOYPATH
+    - /bin/cp -R template-about.php $DEPLOYPATH
+    - /bin/cp -R template-portfolio.php $DEPLOYPATH
+    - /bin/cp -R template-contact.php $DEPLOYPATH
+    - /bin/cp -R inc $DEPLOYPATH
+    - /bin/cp -R README.md $DEPLOYPATH
+    # Set permission yang aman
+    - /bin/chmod -R 755 $DEPLOYPATH
