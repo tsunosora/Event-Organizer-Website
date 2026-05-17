@@ -1,6 +1,6 @@
 <?php
 /**
- * Custom standalone header for Abadi Event templates.
+ * Custom standalone header.
  * Tidak memakai Astra header — full kontrol layout.
  */
 ?><!DOCTYPE html>
@@ -59,7 +59,7 @@ html body .ae-footer-bottom small { color:rgba(255,255,255,0.5)!important; font-
             if ( has_custom_logo() ) {
                 the_custom_logo();
             } else {
-                bloginfo( 'name' );
+                echo esc_html( eo_company_name() );
             }
             ?>
         </a>
@@ -73,7 +73,7 @@ html body .ae-footer-bottom small { color:rgba(255,255,255,0.5)!important; font-
                 <li><a href="<?php echo esc_url( home_url('/contact/') ); ?>">Contact</a></li>
             </ul>
         </nav>
-        <a href="https://wa.me/6281227447888" target="_blank" class="ae-btn ae-btn-sm ae-header-cta">Hubungi Kami</a>
+        <a href="<?php echo esc_url( eo_wa_link() ); ?>" target="_blank" class="ae-btn ae-btn-sm ae-header-cta">Hubungi Kami</a>
     </div>
 </header>
 

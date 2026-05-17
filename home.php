@@ -1,9 +1,10 @@
 <?php
 /**
- * Blog index — Posts page Abadi Event.
- * WordPress otomatis pakai file ini ketika "Posts page" di-set.
+ * Blog index. WordPress otomatis pakai file ini ketika "Posts page" di-set.
  */
 require get_stylesheet_directory() . '/header-ae.php';
+$company = eo_company_name();
+$city    = eo_brand( 'company_city', 'Yogyakarta' );
 ?>
 
 <!-- HERO -->
@@ -11,8 +12,8 @@ require get_stylesheet_directory() . '/header-ae.php';
     <div class="ae-container">
         <nav class="ae-breadcrumb"><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a> <span>/</span> <span>Blog</span></nav>
         <span class="ae-eyebrow">INSIGHT &amp; ARTIKEL</span>
-        <h1>Wawasan Industri Pameran<br>&amp; Event di Yogyakarta</h1>
-        <p>Tips, panduan, dan tren terbaru seputar konstruksi pameran, booth, interior komersial, dan event organizer dari tim Abadi Event.</p>
+        <h1>Wawasan Industri Pameran<br>&amp; Event di <?php echo esc_html( $city ); ?></h1>
+        <p>Tips, panduan, dan tren terbaru seputar konstruksi pameran, booth, interior komersial, dan event organizer dari tim <?php echo esc_html( $company ); ?>.</p>
     </div>
 </section>
 
@@ -118,7 +119,7 @@ if ( ! empty( $posts ) ) :
         <div class="ae-blog-grid ae-blog-grid-lg">
             <?php
             $dummies = array(
-                array('Tips Memilih Kontraktor Booth Pameran di Yogyakarta', 'Panduan',           'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80'),
+                array('Tips Memilih Kontraktor Booth Pameran Profesional', 'Panduan',           'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=800&q=80'),
                 array('Checklist Persiapan Pameran Dagang B2B Skala Nasional', 'Tips Pameran',    'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80'),
                 array('5 Inspirasi Desain Booth yang Mencuri Perhatian Pengunjung', 'Inspirasi',  'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&q=80'),
                 array('Berapa Biaya Sewa Kontraktor Pameran di Jogja? Panduan 2026', 'Insight',   'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80'),
@@ -151,8 +152,8 @@ if ( ! empty( $posts ) ) :
     <div class="ae-container" style="text-align:center;">
         <span class="ae-eyebrow" style="color:var(--ae-red);">DAPATKAN INSIGHT TERBARU</span>
         <h2>Diskusikan Proyek Pameran Anda Bersama Kami</h2>
-        <p>Konsultasi gratis dengan tim Abadi Event — kami siap menyusun proposal &amp; RAB dalam 1×24 jam.</p>
-        <a href="https://wa.me/6281227447888" target="_blank" class="ae-btn ae-btn-lg">Hubungi Tim Kami</a>
+        <p>Konsultasi gratis dengan tim <?php echo esc_html( $company ); ?> &mdash; kami siap menyusun proposal &amp; RAB dalam 1&times;24 jam.</p>
+        <a href="<?php echo esc_url( eo_wa_link() ); ?>" target="_blank" class="ae-btn ae-btn-lg">Hubungi Tim Kami</a>
     </div>
 </section>
 

@@ -1,26 +1,28 @@
 <?php
 /**
- * Template Name: Abadi Event - Portfolio
+ * Template Name: Event Organize - Portfolio
  */
-require get_stylesheet_directory() . '/header-ae.php'; ?>
+require get_stylesheet_directory() . '/header-ae.php';
+$city = eo_brand( 'company_city', 'Yogyakarta' );
+?>
 
 <!-- HERO -->
 <section class="ae-page-hero">
     <div class="ae-container">
         <nav class="ae-breadcrumb"><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a> <span>/</span> <span>Portfolio</span></nav>
         <span class="ae-eyebrow">PORTFOLIO PROYEK</span>
-        <h1>Rekam Jejak Pameran, Booth,<br>Interior &amp; Event di Yogyakarta</h1>
-        <p>Lebih dari 200 proyek telah kami eksekusi untuk klien korporat di Yogyakarta dan kota-kota besar di Indonesia.</p>
+        <h1>Rekam Jejak Pameran, Booth,<br>Interior &amp; Event di <?php echo esc_html( $city ); ?></h1>
+        <p>Lebih dari <?php echo esc_html( eo_brand('stat_projects', '200+') ); ?> proyek telah kami eksekusi untuk klien korporat di <?php echo esc_html( $city ); ?> dan kota-kota besar di Indonesia.</p>
     </div>
 </section>
 
 <!-- STATS BAR -->
 <section class="ae-portfolio-stats">
     <div class="ae-container ae-portfolio-stats-grid">
-        <div><strong>200+</strong><span>Proyek Selesai</span></div>
-        <div><strong>150+</strong><span>Klien Korporat</span></div>
-        <div><strong>25+</strong><span>Kota Terjangkau</span></div>
-        <div><strong>10+</strong><span>Tahun Pengalaman</span></div>
+        <div><strong><?php echo esc_html( eo_brand('stat_projects', '200+') ); ?></strong><span>Proyek Selesai</span></div>
+        <div><strong><?php echo esc_html( eo_brand('stat_clients', '150+') ); ?></strong><span>Klien Korporat</span></div>
+        <div><strong><?php echo esc_html( eo_brand('stat_cities', '25+') ); ?></strong><span>Kota Terjangkau</span></div>
+        <div><strong><?php echo esc_html( eo_brand('stat_years', '10+') ); ?></strong><span>Tahun Pengalaman</span></div>
     </div>
 </section>
 
@@ -120,7 +122,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
             <div class="ae-quality-card">
                 <div class="ae-quality-num">02</div>
                 <h3>Workshop In-House</h3>
-                <p>Produksi di workshop sendiri di Yogyakarta, dipantau langsung oleh tim quality control.</p>
+                <p>Produksi di workshop sendiri, dipantau langsung oleh tim quality control kami.</p>
             </div>
             <div class="ae-quality-card">
                 <div class="ae-quality-num">03</div>
@@ -146,7 +148,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
         <div class="ae-testimonials">
             <div class="ae-testi-card">
                 <div class="ae-stars">★★★★★</div>
-                <p>"Salah satu pelayanan jasa terbaik di Yogyakarta. Tim profesional, hasil booth memuaskan, deadline tepat waktu."</p>
+                <p>"Salah satu pelayanan jasa terbaik. Tim profesional, hasil booth memuaskan, deadline tepat waktu."</p>
                 <strong>— Miftha Busree</strong>
                 <small style="color:rgba(255,255,255,0.5);font-size:12px;">Klien Korporat</small>
             </div>
@@ -171,7 +173,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
     <div class="ae-container" style="text-align:center;">
         <h2>Tertarik dengan Hasil Kerja Kami?</h2>
         <p>Diskusikan kebutuhan proyek pameran, booth, interior, atau event Anda — gratis dan tanpa komitmen.</p>
-        <a href="https://wa.me/6281227447888" target="_blank" class="ae-btn ae-btn-lg">Mulai Konsultasi</a>
+        <a href="<?php echo esc_url( eo_wa_link() ); ?>" target="_blank" class="ae-btn ae-btn-lg">Mulai Konsultasi</a>
     </div>
 </section>
 

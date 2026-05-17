@@ -50,7 +50,7 @@ add_action( 'customize_register', function ( $wp_customize ) {
         'priority' => 10,
     ) );
     $add_text( 'ae_about_hero_eyebrow', 'Eyebrow (label kecil di atas)', 'TENTANG PERUSAHAAN', 'ae_about_hero' );
-    $add_text( 'ae_about_hero_title', 'Headline besar', "Mitra Strategis Pameran & Event\ndi Yogyakarta Sejak 2013", 'ae_about_hero', 'textarea' );
+    $add_text( 'ae_about_hero_title', 'Headline besar', "Mitra Strategis Pameran & Event\nuntuk Brand Korporat", 'ae_about_hero', 'textarea' );
     $add_text( 'ae_about_hero_subtitle', 'Subjudul', 'Lebih dari satu dekade memberikan solusi konstruksi pameran, booth, interior, dan event organizer untuk klien korporat di seluruh Indonesia.', 'ae_about_hero', 'textarea' );
 
     // ============ SECTION: PROFIL ============
@@ -59,8 +59,8 @@ add_action( 'customize_register', function ( $wp_customize ) {
         'panel'    => 'ae_about_panel',
         'priority' => 20,
     ) );
-    $add_text( 'ae_about_profile_title', 'Judul section', 'Tentang Abadi Event', 'ae_about_profile' );
-    $add_text( 'ae_about_profile_p1', 'Paragraf 1', '<strong>Abadi Event</strong> adalah perusahaan kontraktor pameran dan event organizer yang berbasis di Yogyakarta. Berdiri sejak 2013, kami fokus melayani kebutuhan brand korporat dalam membangun kehadiran fisik yang berdampak — mulai dari booth pameran, konstruksi event, interior ruang komersial, hingga eksekusi acara perusahaan.', 'ae_about_profile', 'textarea' );
+    $add_text( 'ae_about_profile_title', 'Judul section', 'Tentang Perusahaan Kami', 'ae_about_profile' );
+    $add_text( 'ae_about_profile_p1', 'Paragraf 1', 'Kami adalah perusahaan kontraktor pameran dan event organizer profesional yang fokus melayani kebutuhan brand korporat — mulai dari booth pameran, konstruksi event, interior ruang komersial, hingga eksekusi acara perusahaan.', 'ae_about_profile', 'textarea' );
     $add_text( 'ae_about_profile_p2', 'Paragraf 2', 'Dengan tim in-house yang menangani seluruh tahapan proyek — perencanaan, desain 3D, produksi, instalasi, hingga bongkar pasca event — kami menjamin kualitas dan ketepatan waktu setiap pekerjaan.', 'ae_about_profile', 'textarea' );
     $add_text( 'ae_about_profile_p3', 'Paragraf 3', 'Hingga hari ini, kami telah menyelesaikan lebih dari 200 proyek dengan rating sempurna 5,0 di Google Business Profile.', 'ae_about_profile', 'textarea' );
     $add_image( 'ae_about_profile_image', 'Gambar Profil', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80', 'ae_about_profile' );
@@ -73,11 +73,11 @@ add_action( 'customize_register', function ( $wp_customize ) {
         'panel'    => 'ae_about_panel',
         'priority' => 30,
     ) );
-    $add_text( 'ae_about_visi', 'Isi Visi', 'Menjadi kontraktor pameran dan event organizer terdepan di Daerah Istimewa Yogyakarta yang dipercaya oleh klien korporat melalui kualitas pekerjaan, ketepatan waktu, dan harga yang adil.', 'ae_about_vm', 'textarea' );
+    $add_text( 'ae_about_visi', 'Isi Visi', 'Menjadi kontraktor pameran dan event organizer terdepan yang dipercaya oleh klien korporat melalui kualitas pekerjaan, ketepatan waktu, dan harga yang adil.', 'ae_about_vm', 'textarea' );
     $add_text( 'ae_about_misi_1', 'Misi 1', 'Memberikan desain booth dan event yang merepresentasikan identitas klien.', 'ae_about_vm', 'textarea' );
     $add_text( 'ae_about_misi_2', 'Misi 2', 'Menjaga standar kualitas konstruksi dan finishing pada setiap proyek.', 'ae_about_vm', 'textarea' );
     $add_text( 'ae_about_misi_3', 'Misi 3', 'Membangun kemitraan jangka panjang berbasis kepercayaan dan transparansi.', 'ae_about_vm', 'textarea' );
-    $add_text( 'ae_about_misi_4', 'Misi 4', 'Memberdayakan tenaga kerja kreatif lokal Yogyakarta.', 'ae_about_vm', 'textarea' );
+    $add_text( 'ae_about_misi_4', 'Misi 4', 'Memberdayakan tenaga kerja kreatif lokal.', 'ae_about_vm', 'textarea' );
 
     // ============ SECTION: TIM ============
     $wp_customize->add_section( 'ae_about_team', array(
@@ -86,7 +86,7 @@ add_action( 'customize_register', function ( $wp_customize ) {
         'priority' => 40,
     ) );
     $add_text( 'ae_about_team_title', 'Judul section', 'Dipimpin oleh Profesional Berpengalaman', 'ae_about_team' );
-    $add_text( 'ae_about_team_subtitle', 'Subjudul', 'Tim Abadi Event terdiri dari spesialis desain, produksi, dan manajemen proyek dengan rekam jejak di industri pameran.', 'ae_about_team', 'textarea' );
+    $add_text( 'ae_about_team_subtitle', 'Subjudul', 'Tim kami terdiri dari spesialis desain, produksi, dan manajemen proyek dengan rekam jejak di industri pameran.', 'ae_about_team', 'textarea' );
 
     $team_defaults = array(
         1 => array( 'Direktur Utama',     'Founder & CEO',           'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80' ),
@@ -106,8 +106,8 @@ add_action( 'customize_register', function ( $wp_customize ) {
         'panel'    => 'ae_about_panel',
         'priority' => 50,
     ) );
-    $add_text( 'ae_about_location_address', 'Alamat lengkap', 'Jl. Godo Inten UH VI No.50E, Sorosutan, Umbulharjo, Yogyakarta 55162', 'ae_about_location', 'textarea' );
-    $add_text( 'ae_about_location_map_query', 'Query untuk Google Maps embed', 'Jl. Godo Inten UH VI No.50E, Sorosutan, Umbulharjo, Yogyakarta', 'ae_about_location', 'textarea' );
+    $add_text( 'ae_about_location_address', 'Alamat lengkap (kosongkan untuk pakai Identitas Brand)', '', 'ae_about_location', 'textarea' );
+    $add_text( 'ae_about_location_map_query', 'Query Google Maps (kosongkan untuk pakai Identitas Brand)', '', 'ae_about_location', 'textarea' );
 
 }, 20 );
 

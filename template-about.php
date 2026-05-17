@@ -1,16 +1,20 @@
 <?php
 /**
- * Template Name: Abadi Event - About
+ * Template Name: Event Organize - About
  * Konten dapat diedit di: Appearance → Customize → Halaman About
  */
-require get_stylesheet_directory() . '/header-ae.php'; ?>
+require get_stylesheet_directory() . '/header-ae.php';
+$company = eo_company_name();
+$city    = eo_brand( 'company_city', 'Yogyakarta' );
+$year    = eo_brand( 'company_year', '2013' );
+?>
 
 <!-- HERO -->
 <section class="ae-page-hero">
     <div class="ae-container">
         <nav class="ae-breadcrumb"><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a> <span>/</span> <span>About</span></nav>
         <span class="ae-eyebrow"><?php echo esc_html( ae_mod( 'ae_about_hero_eyebrow', 'TENTANG PERUSAHAAN' ) ); ?></span>
-        <h1><?php echo ae_nl2br( ae_mod( 'ae_about_hero_title', "Mitra Strategis Pameran & Event\ndi Yogyakarta Sejak 2013" ) ); ?></h1>
+        <h1><?php echo ae_nl2br( ae_mod( 'ae_about_hero_title', "Mitra Strategis Pameran & Event\ndi {$city} Sejak {$year}" ) ); ?></h1>
         <p><?php echo esc_html( ae_mod( 'ae_about_hero_subtitle', 'Lebih dari satu dekade memberikan solusi konstruksi pameran, booth, interior, dan event organizer untuk klien korporat di seluruh Indonesia.' ) ); ?></p>
     </div>
 </section>
@@ -20,14 +24,14 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
     <div class="ae-container ae-about-intro">
         <div>
             <span class="ae-eyebrow ae-eyebrow-dark">PROFIL PERUSAHAAN</span>
-            <h2><?php echo esc_html( ae_mod( 'ae_about_profile_title', 'Tentang Abadi Event' ) ); ?></h2>
+            <h2><?php echo esc_html( ae_mod( 'ae_about_profile_title', 'Tentang ' . $company ) ); ?></h2>
             <p><?php echo wp_kses_post( ae_mod( 'ae_about_profile_p1' ) ); ?></p>
             <p><?php echo wp_kses_post( ae_mod( 'ae_about_profile_p2' ) ); ?></p>
             <p><?php echo wp_kses_post( ae_mod( 'ae_about_profile_p3' ) ); ?></p>
             <a href="<?php echo esc_url( home_url('/portfolio/') ); ?>" class="ae-btn">Lihat Portfolio Kami</a>
         </div>
         <div class="ae-about-image">
-            <img src="<?php echo esc_url( ae_mod( 'ae_about_profile_image', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' ) ); ?>" alt="Kantor Abadi Event Yogyakarta">
+            <img src="<?php echo esc_url( ae_mod( 'ae_about_profile_image', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' ) ); ?>" alt="Kantor <?php echo esc_attr( $company ); ?>">
             <div class="ae-image-badge">
                 <strong><?php echo esc_html( ae_mod( 'ae_about_badge_number', '10+' ) ); ?></strong>
                 <span><?php echo ae_nl2br( ae_mod( 'ae_about_badge_label', "Tahun\nPengalaman" ) ); ?></span>
@@ -100,7 +104,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
     <div class="ae-container ae-why-grid">
         <div class="ae-why-head">
             <span class="ae-eyebrow">KEUNGGULAN KAMI</span>
-            <h2 style="color:#fff;">Mengapa Klien Memilih<br>Abadi Event</h2>
+            <h2 style="color:#fff;">Mengapa Klien Memilih<br><?php echo esc_html( $company ); ?></h2>
             <p style="color:rgba(255,255,255,0.75);">Empat pilar yang menjadi alasan klien korporat mempercayakan proyek pameran dan event mereka kepada kami selama lebih dari satu dekade.</p>
         </div>
         <div class="ae-why-list">
@@ -118,7 +122,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
         <div class="ae-section-head">
             <span class="ae-eyebrow ae-eyebrow-dark">TIM KAMI</span>
             <h2><?php echo esc_html( ae_mod( 'ae_about_team_title', 'Dipimpin oleh Profesional Berpengalaman' ) ); ?></h2>
-            <p><?php echo esc_html( ae_mod( 'ae_about_team_subtitle', 'Tim Abadi Event terdiri dari spesialis desain, produksi, dan manajemen proyek dengan rekam jejak di industri pameran.' ) ); ?></p>
+            <p><?php echo esc_html( ae_mod( 'ae_about_team_subtitle', "Tim {$company} terdiri dari spesialis desain, produksi, dan manajemen proyek dengan rekam jejak di industri pameran." ) ); ?></p>
         </div>
         <div class="ae-team-grid">
             <?php for ( $i = 1; $i <= 4; $i++ ) :
@@ -162,10 +166,10 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
         <div class="ae-section-head">
             <span class="ae-eyebrow ae-eyebrow-dark">LOKASI KANTOR</span>
             <h2>Kunjungi Workshop Kami</h2>
-            <p><?php echo esc_html( ae_mod( 'ae_about_location_address', 'Jl. Godo Inten UH VI No.50E, Sorosutan, Umbulharjo, Yogyakarta 55162' ) ); ?></p>
+            <p><?php echo esc_html( ae_mod( 'ae_about_location_address', eo_brand( 'address_full' ) ) ); ?></p>
         </div>
         <div class="ae-map">
-            <iframe src="https://www.google.com/maps?q=<?php echo urlencode( ae_mod( 'ae_about_location_map_query', 'Jl. Godo Inten UH VI No.50E, Sorosutan, Umbulharjo, Yogyakarta' ) ); ?>&output=embed" width="100%" height="400" style="border:0;border-radius:4px;" loading="lazy"></iframe>
+            <iframe src="<?php echo esc_url( eo_map_embed_url() ); ?>" width="100%" height="400" style="border:0;border-radius:4px;" loading="lazy"></iframe>
         </div>
     </div>
 </section>
@@ -175,7 +179,7 @@ require get_stylesheet_directory() . '/header-ae.php'; ?>
     <div class="ae-container" style="text-align:center;">
         <h2>Diskusikan Proyek Anda dengan Kami</h2>
         <p>Tim kami siap membantu menyusun konsep, desain, dan anggaran dalam 1×24 jam.</p>
-        <a href="https://wa.me/6281227447888" target="_blank" class="ae-btn ae-btn-lg">Hubungi Sekarang</a>
+        <a href="<?php echo esc_url( eo_wa_link() ); ?>" target="_blank" class="ae-btn ae-btn-lg">Hubungi Sekarang</a>
     </div>
 </section>
 

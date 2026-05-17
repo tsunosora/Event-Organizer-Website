@@ -1,11 +1,12 @@
 /*
-Theme Name:   Abadi Event Child
-Theme URI:    https://abadi-event.local/
-Description:  Child theme Astra untuk Abadi Event - Kontraktor Pameran Jogja.
-Author:       Abadi Event Dev
+Theme Name:   Event Organize
+Theme URI:    https://github.com/tsunosora/event-organize
+Description:  Child theme Astra untuk perusahaan kontraktor pameran, booth, interior, dan event organizer. Reusable — semua identitas brand (nama, logo, WA, alamat) dapat diedit melalui Customizer.
+Author:       tsunosora
 Template:     astra
-Version:      1.1.0
-Text Domain:  abadi-event
+Version:      2.0.0
+Text Domain:  event-organize
+Tags:         business, event, corporate, exhibition, portfolio
 */
 
 :root {

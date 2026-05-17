@@ -4,6 +4,7 @@
  */
 require get_stylesheet_directory() . '/header-ae.php';
 the_post();
+$company = eo_company_name();
 ?>
 
 <!-- HERO POST -->
@@ -68,8 +69,8 @@ the_post();
             </div>
             <div class="ae-author-info">
                 <strong><?php echo esc_html( get_the_author() ); ?></strong>
-                <span>Tim Abadi Event</span>
-                <p>Penulis di Abadi Event — kontraktor pameran &amp; event organizer berbasis di Yogyakarta. Berbagi insight industri pameran dan booth display.</p>
+                <span>Tim <?php echo esc_html( $company ); ?></span>
+                <p>Penulis di <?php echo esc_html( $company ); ?> &mdash; kontraktor pameran &amp; event organizer profesional. Berbagi insight industri pameran dan booth display.</p>
             </div>
         </div>
     </div>
@@ -119,7 +120,7 @@ if ( $related ) : ?>
     <div class="ae-container" style="text-align:center;">
         <h2>Punya Proyek Pameran atau Event?</h2>
         <p>Tim kami siap membantu menyusun konsep dan anggaran sesuai kebutuhan brand Anda.</p>
-        <a href="https://wa.me/6281227447888" target="_blank" class="ae-btn ae-btn-lg">Konsultasi Gratis</a>
+        <a href="<?php echo esc_url( eo_wa_link() ); ?>" target="_blank" class="ae-btn ae-btn-lg">Konsultasi Gratis</a>
     </div>
 </section>
 
