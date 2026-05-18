@@ -15,6 +15,9 @@ require_once get_stylesheet_directory() . '/inc/cpt-project.php';
 // Customizer Portfolio (hero text only — items pakai CPT)
 require_once get_stylesheet_directory() . '/inc/customizer-portfolio-hero.php';
 
+// SEO helper — auto-disable kalau ada plugin SEO populer
+require_once get_stylesheet_directory() . '/inc/seo-helper.php';
+
 // Demo content importer
 require_once get_stylesheet_directory() . '/inc/demo-importer.php';
 
