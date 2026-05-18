@@ -8,48 +8,47 @@ $city    = eo_brand( 'company_city', 'Yogyakarta' );
 $wa      = eo_wa_link();
 ?>
 
-<!-- HERO SLIDER -->
+<!-- HERO SLIDER (editable di Customize → Halaman Home) -->
+<?php
+$slide_count = max( 1, min( 3, (int) get_theme_mod( 'eo_home_hero_count', 3 ) ) );
+?>
 <section class="ae-hero-slider swiper">
     <div class="swiper-wrapper">
-        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80');">
+        <?php for ( $i = 1; $i <= $slide_count; $i++ ) :
+            $img       = get_theme_mod( "eo_home_hero_{$i}_image" );
+            $eyebrow   = get_theme_mod( "eo_home_hero_{$i}_eyebrow" );
+            $title1    = get_theme_mod( "eo_home_hero_{$i}_title1" );
+            $accent    = get_theme_mod( "eo_home_hero_{$i}_accent" );
+            $title2    = get_theme_mod( "eo_home_hero_{$i}_title2" );
+            $subtitle  = get_theme_mod( "eo_home_hero_{$i}_subtitle" );
+            $btn1      = get_theme_mod( "eo_home_hero_{$i}_btn1" );
+            $btn1_url  = get_theme_mod( "eo_home_hero_{$i}_btn1_url" );
+            $btn2      = get_theme_mod( "eo_home_hero_{$i}_btn2" );
+            $btn2_url  = get_theme_mod( "eo_home_hero_{$i}_btn2_url" );
+            if ( ! $img ) continue;
+        ?>
+        <div class="swiper-slide" style="background-image:url('<?php echo esc_url( $img ); ?>');">
             <div class="ae-hero-overlay">
                 <div class="ae-container">
-                    <span class="ae-eyebrow">KONTRAKTOR PAMERAN <?php echo esc_html( strtoupper( $city ) ); ?></span>
-                    <h1>Bawa Brand Anda <span class="ae-accent">Tampil Maksimal</span><br>di Setiap Pameran</h1>
-                    <p>Desain custom, eksekusi rapi, deadline tepat waktu. Lebih dari <?php echo esc_html( eo_brand( 'stat_projects', '200+' ) ); ?> event sukses di <?php echo esc_html( $city ); ?>.</p>
+                    <?php if ( $eyebrow ) : ?><span class="ae-eyebrow"><?php echo esc_html( $eyebrow ); ?></span><?php endif; ?>
+                    <h1>
+                        <?php echo esc_html( $title1 ); ?>
+                        <?php if ( $accent ) : ?> <span class="ae-accent"><?php echo esc_html( $accent ); ?></span><?php endif; ?>
+                        <?php if ( $title2 ) : ?><br><?php echo esc_html( $title2 ); ?><?php endif; ?>
+                    </h1>
+                    <?php if ( $subtitle ) : ?><p><?php echo esc_html( $subtitle ); ?></p><?php endif; ?>
                     <div class="ae-hero-cta">
-                        <a href="<?php echo esc_url( $wa ); ?>" target="_blank" class="ae-btn">Chat WhatsApp</a>
-                        <a href="<?php echo esc_url( home_url('/portfolio/') ); ?>" class="ae-btn-outline-white">Lihat Portfolio</a>
+                        <?php if ( $btn1 ) : ?>
+                            <a href="<?php echo esc_url( eo_resolve_url( $btn1_url ) ); ?>" <?php echo $btn1_url === 'wa' ? 'target="_blank"' : ''; ?> class="ae-btn"><?php echo esc_html( $btn1 ); ?></a>
+                        <?php endif; ?>
+                        <?php if ( $btn2 ) : ?>
+                            <a href="<?php echo esc_url( eo_resolve_url( $btn2_url ) ); ?>" <?php echo $btn2_url === 'wa' ? 'target="_blank"' : ''; ?> class="ae-btn-outline-white"><?php echo esc_html( $btn2 ); ?></a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1600&q=80');">
-            <div class="ae-hero-overlay">
-                <div class="ae-container">
-                    <span class="ae-eyebrow">BOOTH CUSTOM PREMIUM</span>
-                    <h1>Booth yang <span class="ae-accent">Mencuri Perhatian</span><br>Pengunjung Pameran</h1>
-                    <p>Material premium, branding tajam, instalasi cepat. Booth Anda jadi magnet di hall pameran.</p>
-                    <div class="ae-hero-cta">
-                        <a href="<?php echo esc_url( $wa ); ?>" target="_blank" class="ae-btn">Konsultasi Gratis</a>
-                        <a href="<?php echo esc_url( home_url('/portfolio/') ); ?>" class="ae-btn-outline-white">Galeri Booth</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="swiper-slide" style="background-image:url('https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80');">
-            <div class="ae-hero-overlay">
-                <div class="ae-container">
-                    <span class="ae-eyebrow">EVENT ORGANIZER PROFESIONAL</span>
-                    <h1>Event Korporat <span class="ae-accent">Berkesan</span><br>dari Konsep ke Eksekusi</h1>
-                    <p>Gathering, launching, seminar — kami tangani satu pintu, Anda tinggal hadir.</p>
-                    <div class="ae-hero-cta">
-                        <a href="<?php echo esc_url( $wa ); ?>" target="_blank" class="ae-btn">Diskusi Event</a>
-                        <a href="<?php echo esc_url( home_url('/about/') ); ?>" class="ae-btn-outline-white">Tentang Kami</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endfor; ?>
     </div>
     <div class="swiper-pagination"></div>
     <div class="swiper-button-prev"></div>
@@ -77,7 +76,7 @@ $wa      = eo_wa_link();
             <a href="<?php echo esc_url( home_url('/about/') ); ?>" class="ae-btn">Selengkapnya &rarr;</a>
         </div>
         <div class="ae-about-image">
-            <img src="https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80" alt="Tim <?php echo esc_attr( $company ); ?>">
+            <img src="<?php echo esc_url( get_theme_mod( 'eo_home_about_intro_image', 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=800&q=80' ) ); ?>" alt="Tim <?php echo esc_attr( $company ); ?>">
         </div>
     </div>
 </section>

@@ -273,6 +273,98 @@ function eo_demo_import() {
         }
     }
 
+    // ============ 6b. Customizer Halaman Home — Hero Slider ============
+    $home_defaults = array(
+        // Slide 1
+        'eo_home_hero_1_image'    => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80',
+        'eo_home_hero_1_eyebrow'  => 'KONTRAKTOR PAMERAN YOGYAKARTA',
+        'eo_home_hero_1_title1'   => 'Bawa Brand Anda',
+        'eo_home_hero_1_accent'   => 'Tampil Maksimal',
+        'eo_home_hero_1_title2'   => 'di Setiap Pameran',
+        'eo_home_hero_1_subtitle' => 'Desain custom, eksekusi rapi, deadline tepat waktu. Lebih dari 200 event sukses di Yogyakarta.',
+        'eo_home_hero_1_btn1'     => 'Chat WhatsApp',
+        'eo_home_hero_1_btn1_url' => 'wa',
+        'eo_home_hero_1_btn2'     => 'Lihat Portfolio',
+        'eo_home_hero_1_btn2_url' => '/portfolio/',
+        // Slide 2
+        'eo_home_hero_2_image'    => 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1600&q=80',
+        'eo_home_hero_2_eyebrow'  => 'BOOTH CUSTOM PREMIUM',
+        'eo_home_hero_2_title1'   => 'Booth yang',
+        'eo_home_hero_2_accent'   => 'Mencuri Perhatian',
+        'eo_home_hero_2_title2'   => 'Pengunjung Pameran',
+        'eo_home_hero_2_subtitle' => 'Material premium, branding tajam, instalasi cepat. Booth Anda jadi magnet di hall pameran.',
+        'eo_home_hero_2_btn1'     => 'Konsultasi Gratis',
+        'eo_home_hero_2_btn1_url' => 'wa',
+        'eo_home_hero_2_btn2'     => 'Galeri Booth',
+        'eo_home_hero_2_btn2_url' => '/portfolio/',
+        // Slide 3
+        'eo_home_hero_3_image'    => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80',
+        'eo_home_hero_3_eyebrow'  => 'EVENT ORGANIZER PROFESIONAL',
+        'eo_home_hero_3_title1'   => 'Event Korporat',
+        'eo_home_hero_3_accent'   => 'Berkesan',
+        'eo_home_hero_3_title2'   => 'dari Konsep ke Eksekusi',
+        'eo_home_hero_3_subtitle' => 'Gathering, launching, seminar — kami tangani satu pintu, Anda tinggal hadir.',
+        'eo_home_hero_3_btn1'     => 'Diskusi Event',
+        'eo_home_hero_3_btn1_url' => 'wa',
+        'eo_home_hero_3_btn2'     => 'Tentang Kami',
+        'eo_home_hero_3_btn2_url' => '/about/',
+    );
+    foreach ( $home_defaults as $key => $value ) {
+        if ( get_theme_mod( $key ) === false || get_theme_mod( $key ) === '' ) {
+            set_theme_mod( $key, $value );
+        }
+    }
+
+    // ============ 6c. Customizer Halaman Portfolio — Featured + 12 Items ============
+    $pf_featured = array(
+        'eo_pf_featured_title'    => 'Booth Pameran Otomotif Nasional',
+        'eo_pf_featured_client'   => 'PT Otomotif Nasional',
+        'eo_pf_featured_location' => 'JEC Yogyakarta',
+        'eo_pf_featured_year'     => '2025',
+        'eo_pf_featured_category' => 'booth',
+        'eo_pf_featured_image'    => 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80',
+        'eo_pf_featured_desc'     => 'Booth dua lantai seluas 12×8 meter dengan konsep modern industrial untuk menampilkan lini produk terbaru klien. Pengerjaan diselesaikan dalam 21 hari kerja, mulai dari konsultasi, render 3D, produksi material, hingga instalasi on-site.',
+        'eo_pf_featured_point_1'  => 'Konstruksi dua lantai dengan tangga akses pengunjung VIP',
+        'eo_pf_featured_point_2'  => 'Lighting LED custom dengan kontrol intensitas otomatis',
+        'eo_pf_featured_point_3'  => 'Branding cetak digital high-resolution di seluruh panel',
+        'eo_pf_featured_point_4'  => 'Area diskusi tertutup berkapasitas 8 orang',
+    );
+    foreach ( $pf_featured as $key => $value ) {
+        if ( get_theme_mod( $key ) === false || get_theme_mod( $key ) === '' ) {
+            set_theme_mod( $key, $value );
+        }
+    }
+
+    $pf_items = array(
+        1  => array( 'booth',    'Booth Pameran Otomotif',     'PT Otomotif Nasional', '2025', 'JEC Yogyakarta',    'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=900&q=80' ),
+        2  => array( 'pameran',  'Pameran UMKM Yogyakarta',    'Disperindag DIY',      '2025', 'Jogja Expo Center', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80' ),
+        3  => array( 'interior', 'Showroom Furniture Premium', 'PT Furnitur Jaya',     '2024', 'Jl. Magelang KM 7', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' ),
+        4  => array( 'event',    'Corporate Gathering 500 Pax','PLN UID Yogyakarta',   '2024', 'Hotel Tentrem',     'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80' ),
+        5  => array( 'booth',    'Booth Trade Show Properti',  'Asosiasi Properti DIY','2025', 'Sahid Raya Hotel',  'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=900&q=80' ),
+        6  => array( 'event',    'Launching Produk Smartphone','Brand Nasional',       '2024', 'Plaza Ambarrukmo',  'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80' ),
+        7  => array( 'pameran',  'Pameran Pendidikan UGM',     'UGM Expo',             '2024', 'Grha Sabha Pramana','https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80' ),
+        8  => array( 'interior', 'Kantor Co-Working Modern',   'Startup Yogyakarta',   '2024', 'Sleman City Hall',  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80' ),
+        9  => array( 'booth',    'Booth Aktivasi Brand FMCG',  'Mall Jogja',           '2025', 'Hartono Mall',      'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900&q=80' ),
+        10 => array( 'event',    'Seminar Nasional Konstruksi','Asosiasi Kontraktor',  '2024', 'Royal Ambarrukmo',  'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80' ),
+        11 => array( 'interior', 'Cafe & Resto Boutique',      'Klien Pribadi',        '2024', 'Jl. Kaliurang KM 6','https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=80' ),
+        12 => array( 'pameran',  'Pameran Kerajinan Lokal',    'Dinas Pariwisata DIY', '2025', 'JEC Yogyakarta',    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80' ),
+    );
+    foreach ( $pf_items as $i => $d ) {
+        $map = array(
+            "eo_pf_item_{$i}_category" => $d[0],
+            "eo_pf_item_{$i}_title"    => $d[1],
+            "eo_pf_item_{$i}_client"   => $d[2],
+            "eo_pf_item_{$i}_year"     => $d[3],
+            "eo_pf_item_{$i}_location" => $d[4],
+            "eo_pf_item_{$i}_image"    => $d[5],
+        );
+        foreach ( $map as $key => $value ) {
+            if ( get_theme_mod( $key ) === false || get_theme_mod( $key ) === '' ) {
+                set_theme_mod( $key, $value );
+            }
+        }
+    }
+
     // ============ 7. Buat 5 Blog Post Dummy ============
     $posts = array(
         array(

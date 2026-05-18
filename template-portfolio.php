@@ -6,13 +6,13 @@ require get_stylesheet_directory() . '/header-ae.php';
 $city = eo_brand( 'company_city', 'Yogyakarta' );
 ?>
 
-<!-- HERO -->
+<!-- HERO (editable di Customize → Halaman Portfolio → Hero Portfolio) -->
 <section class="ae-page-hero">
     <div class="ae-container">
         <nav class="ae-breadcrumb"><a href="<?php echo esc_url( home_url('/') ); ?>">Home</a> <span>/</span> <span>Portfolio</span></nav>
-        <span class="ae-eyebrow">PORTFOLIO PROYEK</span>
-        <h1>Rekam Jejak Pameran, Booth,<br>Interior &amp; Event di <?php echo esc_html( $city ); ?></h1>
-        <p>Lebih dari <?php echo esc_html( eo_brand('stat_projects', '200+') ); ?> proyek telah kami eksekusi untuk klien korporat di <?php echo esc_html( $city ); ?> dan kota-kota besar di Indonesia.</p>
+        <span class="ae-eyebrow"><?php echo esc_html( get_theme_mod( 'eo_pf_hero_eyebrow', 'PORTFOLIO PROYEK' ) ); ?></span>
+        <h1><?php echo eo_nl2br( get_theme_mod( 'eo_pf_hero_title', "Rekam Jejak Pameran, Booth,\nInterior & Event di {$city}" ) ); ?></h1>
+        <p><?php echo esc_html( get_theme_mod( 'eo_pf_hero_subtitle', "Lebih dari " . eo_brand('stat_projects', '200+') . " proyek telah kami eksekusi untuk klien korporat di {$city}." ) ); ?></p>
     </div>
 </section>
 
@@ -26,35 +26,53 @@ $city = eo_brand( 'company_city', 'Yogyakarta' );
     </div>
 </section>
 
-<!-- FEATURED PROJECT -->
+<!-- FEATURED PROJECT (editable di Customize → Halaman Portfolio → Featured Project) -->
+<?php
+$f_title    = get_theme_mod( 'eo_pf_featured_title', 'Booth Pameran Otomotif Nasional' );
+$f_client   = get_theme_mod( 'eo_pf_featured_client', 'PT Otomotif Nasional' );
+$f_location = get_theme_mod( 'eo_pf_featured_location', 'JEC Yogyakarta' );
+$f_year     = get_theme_mod( 'eo_pf_featured_year', '2025' );
+$f_category = get_theme_mod( 'eo_pf_featured_category', 'booth' );
+$f_image    = get_theme_mod( 'eo_pf_featured_image', 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80' );
+$f_desc     = get_theme_mod( 'eo_pf_featured_desc', '' );
+$f_points   = array_filter( array(
+    get_theme_mod( 'eo_pf_featured_point_1' ),
+    get_theme_mod( 'eo_pf_featured_point_2' ),
+    get_theme_mod( 'eo_pf_featured_point_3' ),
+    get_theme_mod( 'eo_pf_featured_point_4' ),
+) );
+?>
+<?php if ( $f_title ) : ?>
 <section class="ae-section">
     <div class="ae-container">
         <div class="ae-section-head ae-section-head-left">
             <span class="ae-eyebrow ae-eyebrow-dark">PROYEK UNGGULAN</span>
-            <h2>Booth Pameran Otomotif Nasional</h2>
+            <h2><?php echo esc_html( $f_title ); ?></h2>
         </div>
         <div class="ae-featured-grid">
             <div class="ae-featured-image">
-                <img src="https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80" alt="Booth Pameran Otomotif">
+                <img src="<?php echo esc_url( $f_image ); ?>" alt="<?php echo esc_attr( $f_title ); ?>">
             </div>
             <div class="ae-featured-info">
                 <div class="ae-featured-meta">
-                    <div><span class="ae-meta-label">Klien</span><strong>PT Otomotif Nasional</strong></div>
-                    <div><span class="ae-meta-label">Lokasi</span><strong>JEC Yogyakarta</strong></div>
-                    <div><span class="ae-meta-label">Tahun</span><strong>2025</strong></div>
-                    <div><span class="ae-meta-label">Kategori</span><strong>Booth Pameran</strong></div>
+                    <div><span class="ae-meta-label">Klien</span><strong><?php echo esc_html( $f_client ); ?></strong></div>
+                    <div><span class="ae-meta-label">Lokasi</span><strong><?php echo esc_html( $f_location ); ?></strong></div>
+                    <div><span class="ae-meta-label">Tahun</span><strong><?php echo esc_html( $f_year ); ?></strong></div>
+                    <div><span class="ae-meta-label">Kategori</span><strong><?php echo esc_html( eo_pf_category_label( $f_category ) ); ?></strong></div>
                 </div>
-                <p>Booth dua lantai seluas 12×8 meter dengan konsep modern industrial untuk menampilkan lini produk terbaru klien. Pengerjaan diselesaikan dalam 21 hari kerja, mulai dari konsultasi, render 3D, produksi material, hingga instalasi on-site.</p>
+                <?php if ( $f_desc ) : ?><p><?php echo esc_html( $f_desc ); ?></p><?php endif; ?>
+                <?php if ( $f_points ) : ?>
                 <ul class="ae-featured-points">
-                    <li>Konstruksi dua lantai dengan tangga akses pengunjung VIP</li>
-                    <li>Lighting LED custom dengan kontrol intensitas otomatis</li>
-                    <li>Branding cetak digital high-resolution di seluruh panel</li>
-                    <li>Area diskusi tertutup berkapasitas 8 orang</li>
+                    <?php foreach ( $f_points as $point ) : ?>
+                        <li><?php echo esc_html( $point ); ?></li>
+                    <?php endforeach; ?>
                 </ul>
+                <?php endif; ?>
             </div>
         </div>
     </div>
 </section>
+<?php endif; ?>
 
 <!-- FILTER & GRID -->
 <section class="ae-section ae-section-gray">
@@ -74,33 +92,28 @@ $city = eo_brand( 'company_city', 'Yogyakarta' );
 
         <div class="ae-portfolio-grid ae-portfolio-grid-lg">
             <?php
-            $items = array(
-                array('booth',    'Booth Pameran Otomotif',     'PT Otomotif Nasional · 2025',  'JEC Yogyakarta',    'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=900&q=80'),
-                array('pameran',  'Pameran UMKM Yogyakarta',    'Disperindag DIY · 2025',       'Jogja Expo Center', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80'),
-                array('interior', 'Showroom Furniture Premium', 'PT Furnitur Jaya · 2024',      'Jl. Magelang KM 7', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80'),
-                array('event',    'Corporate Gathering 500 Pax','PLN UID Yogyakarta · 2024',    'Hotel Tentrem',     'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80'),
-                array('booth',    'Booth Trade Show Properti',  'Asosiasi Properti DIY · 2025', 'Sahid Raya Hotel',  'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=900&q=80'),
-                array('event',    'Launching Produk Smartphone','Brand Nasional · 2024',        'Plaza Ambarrukmo',  'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80'),
-                array('pameran',  'Pameran Pendidikan UGM',     'UGM Expo · 2024',              'Grha Sabha Pramana','https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80'),
-                array('interior', 'Kantor Co-Working Modern',   'Startup Yogyakarta · 2024',    'Sleman City Hall',  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80'),
-                array('booth',    'Booth Aktivasi Brand FMCG',  'Mall Jogja · 2025',            'Hartono Mall',      'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900&q=80'),
-                array('event',    'Seminar Nasional Konstruksi','Asosiasi Kontraktor · 2024',   'Royal Ambarrukmo',  'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80'),
-                array('interior', 'Cafe &amp; Resto Boutique',  'Klien Pribadi · 2024',         'Jl. Kaliurang KM 6','https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=80'),
-                array('pameran',  'Pameran Kerajinan Lokal',    'Dinas Pariwisata DIY · 2025',  'JEC Yogyakarta',    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80'),
-            );
-            foreach ( $items as $it ) : ?>
-                <div class="ae-portfolio-card" data-cat="<?php echo esc_attr($it[0]); ?>">
-                    <div class="ae-portfolio-img"><img src="<?php echo esc_url($it[4]); ?>" alt="<?php echo esc_attr($it[1]); ?>"></div>
+            $items_count = max( 0, min( 12, (int) get_theme_mod( 'eo_pf_items_count', 12 ) ) );
+            for ( $i = 1; $i <= $items_count; $i++ ) :
+                $cat      = get_theme_mod( "eo_pf_item_{$i}_category", 'booth' );
+                $title    = get_theme_mod( "eo_pf_item_{$i}_title" );
+                $client   = get_theme_mod( "eo_pf_item_{$i}_client" );
+                $year     = get_theme_mod( "eo_pf_item_{$i}_year" );
+                $location = get_theme_mod( "eo_pf_item_{$i}_location" );
+                $image    = get_theme_mod( "eo_pf_item_{$i}_image" );
+                if ( ! $title || ! $image ) continue;
+            ?>
+                <div class="ae-portfolio-card" data-cat="<?php echo esc_attr( $cat ); ?>">
+                    <div class="ae-portfolio-img"><img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $title ); ?>"></div>
                     <div class="ae-portfolio-meta">
-                        <span class="ae-tag"><?php
-                            $labels = array('booth'=>'Booth Pameran','pameran'=>'Konstruksi Pameran','interior'=>'Interior Desain','event'=>'Event Organizer');
-                            echo esc_html( $labels[$it[0]] ?? $it[0] );
-                        ?></span>
-                        <h3><?php echo $it[1]; ?></h3>
-                        <small><?php echo esc_html($it[2]); ?> · <?php echo esc_html($it[3]); ?></small>
+                        <span class="ae-tag"><?php echo esc_html( eo_pf_category_label( $cat ) ); ?></span>
+                        <h3><?php echo esc_html( $title ); ?></h3>
+                        <small>
+                            <?php echo esc_html( $client ); ?><?php echo $year ? ' &middot; ' . esc_html( $year ) : ''; ?>
+                            <?php if ( $location ) echo ' &middot; ' . esc_html( $location ); ?>
+                        </small>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php endfor; ?>
         </div>
     </div>
 </section>

@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 // Customizer modules
 require_once get_stylesheet_directory() . '/inc/customizer-brand.php';
 require_once get_stylesheet_directory() . '/inc/customizer-about.php';
+require_once get_stylesheet_directory() . '/inc/customizer-home.php';
+require_once get_stylesheet_directory() . '/inc/customizer-portfolio.php';
 
 // Demo content importer
 require_once get_stylesheet_directory() . '/inc/demo-importer.php';
@@ -149,6 +151,10 @@ add_action( 'wp_head', function () {
 add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'swiper-css', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css', array(), '11.0.0' );
     wp_enqueue_script( 'swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', array(), '11.0.0', true );
+    $autoplay_delay = (int) get_theme_mod( 'eo_home_hero_autoplay', 5000 );
+    $autoplay_js = $autoplay_delay > 0
+        ? "autoplay: { delay: {$autoplay_delay}, disableOnInteraction: false },"
+        : '';
     wp_add_inline_script( 'swiper-js', "
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof Swiper === 'undefined') return;
@@ -156,7 +162,7 @@ add_action( 'wp_enqueue_scripts', function () {
             if (!el) return;
             new Swiper(el, {
                 loop: false, rewind: true, speed: 800,
-                autoplay: { delay: 5000, disableOnInteraction: false },
+                {$autoplay_js}
                 effect: 'fade', fadeEffect: { crossFade: true },
                 pagination: { el: el.querySelector('.swiper-pagination'), clickable: true },
                 navigation: {
