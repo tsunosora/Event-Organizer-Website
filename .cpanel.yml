@@ -18,5 +18,7 @@ deployment:
     - /bin/cp -R template-contact.php $DEPLOYPATH
     - /bin/cp -R inc $DEPLOYPATH
     - /bin/cp -R README.md $DEPLOYPATH
-    # Set permission yang aman
-    - /bin/chmod -R 755 $DEPLOYPATH
+    # Set permission yang aman — folder 755, file 644
+    - /bin/chmod 755 $DEPLOYPATH
+    - /bin/find $DEPLOYPATH -type d -exec /bin/chmod 755 {} \;
+    - /bin/find $DEPLOYPATH -type f -exec /bin/chmod 644 {} \;
