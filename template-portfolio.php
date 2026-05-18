@@ -26,23 +26,25 @@ $city = eo_brand( 'company_city', 'Yogyakarta' );
     </div>
 </section>
 
-<!-- FEATURED PROJECT (editable di Customize → Halaman Portfolio → Featured Project) -->
+<!-- FEATURED PROJECT (dari CPT Portofolio yang ditandai Featured) -->
 <?php
-$f_title    = get_theme_mod( 'eo_pf_featured_title', 'Booth Pameran Otomotif Nasional' );
-$f_client   = get_theme_mod( 'eo_pf_featured_client', 'PT Otomotif Nasional' );
-$f_location = get_theme_mod( 'eo_pf_featured_location', 'JEC Yogyakarta' );
-$f_year     = get_theme_mod( 'eo_pf_featured_year', '2025' );
-$f_category = get_theme_mod( 'eo_pf_featured_category', 'booth' );
-$f_image    = get_theme_mod( 'eo_pf_featured_image', 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80' );
-$f_desc     = get_theme_mod( 'eo_pf_featured_desc', '' );
-$f_points   = array_filter( array(
-    get_theme_mod( 'eo_pf_featured_point_1' ),
-    get_theme_mod( 'eo_pf_featured_point_2' ),
-    get_theme_mod( 'eo_pf_featured_point_3' ),
-    get_theme_mod( 'eo_pf_featured_point_4' ),
-) );
+$featured = eo_get_featured_project();
+if ( $featured ) :
+    $f_id       = $featured->ID;
+    $f_title    = $featured->post_title;
+    $f_client   = get_post_meta( $f_id, '_eo_project_client', true );
+    $f_location = get_post_meta( $f_id, '_eo_project_location', true );
+    $f_year     = get_post_meta( $f_id, '_eo_project_year', true );
+    $f_category = eo_project_main_cat_name( $f_id );
+    $f_image    = get_the_post_thumbnail_url( $f_id, 'large' );
+    $f_desc     = wpautop( $featured->post_content );
+    $f_points   = array_filter( array(
+        get_post_meta( $f_id, '_eo_project_point_1', true ),
+        get_post_meta( $f_id, '_eo_project_point_2', true ),
+        get_post_meta( $f_id, '_eo_project_point_3', true ),
+        get_post_meta( $f_id, '_eo_project_point_4', true ),
+    ) );
 ?>
-<?php if ( $f_title ) : ?>
 <section class="ae-section">
     <div class="ae-container">
         <div class="ae-section-head ae-section-head-left">
@@ -51,16 +53,18 @@ $f_points   = array_filter( array(
         </div>
         <div class="ae-featured-grid">
             <div class="ae-featured-image">
-                <img src="<?php echo esc_url( $f_image ); ?>" alt="<?php echo esc_attr( $f_title ); ?>">
+                <?php if ( $f_image ) : ?>
+                    <img src="<?php echo esc_url( $f_image ); ?>" alt="<?php echo esc_attr( $f_title ); ?>">
+                <?php endif; ?>
             </div>
             <div class="ae-featured-info">
                 <div class="ae-featured-meta">
-                    <div><span class="ae-meta-label">Klien</span><strong><?php echo esc_html( $f_client ); ?></strong></div>
-                    <div><span class="ae-meta-label">Lokasi</span><strong><?php echo esc_html( $f_location ); ?></strong></div>
-                    <div><span class="ae-meta-label">Tahun</span><strong><?php echo esc_html( $f_year ); ?></strong></div>
-                    <div><span class="ae-meta-label">Kategori</span><strong><?php echo esc_html( eo_pf_category_label( $f_category ) ); ?></strong></div>
+                    <?php if ( $f_client ) : ?><div><span class="ae-meta-label">Klien</span><strong><?php echo esc_html( $f_client ); ?></strong></div><?php endif; ?>
+                    <?php if ( $f_location ) : ?><div><span class="ae-meta-label">Lokasi</span><strong><?php echo esc_html( $f_location ); ?></strong></div><?php endif; ?>
+                    <?php if ( $f_year ) : ?><div><span class="ae-meta-label">Tahun</span><strong><?php echo esc_html( $f_year ); ?></strong></div><?php endif; ?>
+                    <?php if ( $f_category ) : ?><div><span class="ae-meta-label">Kategori</span><strong><?php echo esc_html( $f_category ); ?></strong></div><?php endif; ?>
                 </div>
-                <?php if ( $f_desc ) : ?><p><?php echo esc_html( $f_desc ); ?></p><?php endif; ?>
+                <?php if ( $f_desc ) echo $f_desc; ?>
                 <?php if ( $f_points ) : ?>
                 <ul class="ae-featured-points">
                     <?php foreach ( $f_points as $point ) : ?>
@@ -74,7 +78,12 @@ $f_points   = array_filter( array(
 </section>
 <?php endif; ?>
 
-<!-- FILTER & GRID -->
+<!-- FILTER & GRID — Loop dari CPT 'project' (wp-admin → Portofolio) -->
+<?php
+$projects = eo_get_projects( 24, true );
+$categories = eo_project_used_categories();
+if ( $projects ) :
+?>
 <section class="ae-section ae-section-gray">
     <div class="ae-container">
         <div class="ae-section-head">
@@ -84,39 +93,61 @@ $f_points   = array_filter( array(
 
         <div class="ae-portfolio-filter">
             <button data-filter="all" class="is-active">Semua Proyek</button>
-            <button data-filter="booth">Booth Pameran</button>
-            <button data-filter="pameran">Konstruksi Pameran</button>
-            <button data-filter="interior">Interior Desain</button>
-            <button data-filter="event">Event Organizer</button>
+            <?php foreach ( $categories as $cat ) : ?>
+                <button data-filter="<?php echo esc_attr( $cat->slug ); ?>"><?php echo esc_html( $cat->name ); ?></button>
+            <?php endforeach; ?>
         </div>
 
         <div class="ae-portfolio-grid ae-portfolio-grid-lg">
-            <?php
-            $items_count = max( 0, min( 12, (int) get_theme_mod( 'eo_pf_items_count', 12 ) ) );
-            for ( $i = 1; $i <= $items_count; $i++ ) :
-                $cat      = get_theme_mod( "eo_pf_item_{$i}_category", 'booth' );
-                $title    = get_theme_mod( "eo_pf_item_{$i}_title" );
-                $client   = get_theme_mod( "eo_pf_item_{$i}_client" );
-                $year     = get_theme_mod( "eo_pf_item_{$i}_year" );
-                $location = get_theme_mod( "eo_pf_item_{$i}_location" );
-                $image    = get_theme_mod( "eo_pf_item_{$i}_image" );
-                if ( ! $title || ! $image ) continue;
+            <?php foreach ( $projects as $project ) :
+                $p_id    = $project->ID;
+                $cat     = eo_project_main_cat_slug( $p_id );
+                $cat_name= eo_project_main_cat_name( $p_id );
+                $image   = get_the_post_thumbnail_url( $p_id, 'medium_large' );
+                $client  = get_post_meta( $p_id, '_eo_project_client', true );
+                $year    = get_post_meta( $p_id, '_eo_project_year', true );
+                $location= get_post_meta( $p_id, '_eo_project_location', true );
             ?>
-                <div class="ae-portfolio-card" data-cat="<?php echo esc_attr( $cat ); ?>">
-                    <div class="ae-portfolio-img"><img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $title ); ?>"></div>
+                <a href="<?php echo esc_url( get_permalink( $p_id ) ); ?>" class="ae-portfolio-card" data-cat="<?php echo esc_attr( $cat ); ?>">
+                    <div class="ae-portfolio-img">
+                        <?php if ( $image ) : ?>
+                            <img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $project->post_title ); ?>">
+                        <?php else : ?>
+                            <img src="https://placehold.co/600x450/eee/999?text=No+Image" alt="">
+                        <?php endif; ?>
+                    </div>
                     <div class="ae-portfolio-meta">
-                        <span class="ae-tag"><?php echo esc_html( eo_pf_category_label( $cat ) ); ?></span>
-                        <h3><?php echo esc_html( $title ); ?></h3>
+                        <?php if ( $cat_name ) : ?><span class="ae-tag"><?php echo esc_html( $cat_name ); ?></span><?php endif; ?>
+                        <h3><?php echo esc_html( $project->post_title ); ?></h3>
                         <small>
-                            <?php echo esc_html( $client ); ?><?php echo $year ? ' &middot; ' . esc_html( $year ) : ''; ?>
-                            <?php if ( $location ) echo ' &middot; ' . esc_html( $location ); ?>
+                            <?php
+                            $parts = array_filter( array( $client, $year, $location ) );
+                            echo esc_html( implode( ' · ', $parts ) );
+                            ?>
                         </small>
                     </div>
-                </div>
-            <?php endfor; ?>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
+<?php else : ?>
+<!-- Placeholder kalau belum ada proyek -->
+<section class="ae-section ae-section-gray">
+    <div class="ae-container" style="text-align:center;padding:40px 24px;">
+        <div class="ae-section-head">
+            <span class="ae-eyebrow ae-eyebrow-dark">PORTFOLIO KOSONG</span>
+            <h2>Belum Ada Proyek Ditampilkan</h2>
+            <p>Tambahkan proyek pertama di wp-admin &rarr; <strong>Portofolio &rarr; Tambah Proyek Baru</strong></p>
+            <?php if ( current_user_can( 'edit_posts' ) ) : ?>
+                <p style="margin-top:24px;">
+                    <a href="<?php echo esc_url( admin_url( 'post-new.php?post_type=project' ) ); ?>" class="ae-btn">+ Tambah Proyek</a>
+                </p>
+            <?php endif; ?>
+        </div>
+    </div>
+</section>
+<?php endif; ?>
 
 <!-- PROCESS / EXECUTION QUALITY -->
 <section class="ae-section">

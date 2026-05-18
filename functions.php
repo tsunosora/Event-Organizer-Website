@@ -9,7 +9,11 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 require_once get_stylesheet_directory() . '/inc/customizer-brand.php';
 require_once get_stylesheet_directory() . '/inc/customizer-about.php';
 require_once get_stylesheet_directory() . '/inc/customizer-home.php';
-require_once get_stylesheet_directory() . '/inc/customizer-portfolio.php';
+
+// CPT modules — Portfolio dikelola via wp-admin → Portofolio
+require_once get_stylesheet_directory() . '/inc/cpt-project.php';
+// Customizer Portfolio (hero text only — items pakai CPT)
+require_once get_stylesheet_directory() . '/inc/customizer-portfolio-hero.php';
 
 // Demo content importer
 require_once get_stylesheet_directory() . '/inc/demo-importer.php';

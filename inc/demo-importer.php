@@ -77,6 +77,14 @@ function eo_demo_render_page() {
                         <td>Isi default konten halaman About</td>
                     </tr>
                     <tr>
+                        <td><strong>Customizer — Hero Slider Home</strong></td>
+                        <td>Isi default 3 hero slide di halaman beranda</td>
+                    </tr>
+                    <tr>
+                        <td><strong>12 Project Posts</strong></td>
+                        <td>Sample proyek di menu "Portofolio" (1 ditandai Featured)</td>
+                    </tr>
+                    <tr>
                         <td><strong>Pengaturan Permalink</strong></td>
                         <td>Set ke "Nama Posting" (untuk URL bersih /about/, /blog/, dll.)</td>
                     </tr>
@@ -315,53 +323,86 @@ function eo_demo_import() {
         }
     }
 
-    // ============ 6c. Customizer Halaman Portfolio — Featured + 12 Items ============
-    $pf_featured = array(
-        'eo_pf_featured_title'    => 'Booth Pameran Otomotif Nasional',
-        'eo_pf_featured_client'   => 'PT Otomotif Nasional',
-        'eo_pf_featured_location' => 'JEC Yogyakarta',
-        'eo_pf_featured_year'     => '2025',
-        'eo_pf_featured_category' => 'booth',
-        'eo_pf_featured_image'    => 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80',
-        'eo_pf_featured_desc'     => 'Booth dua lantai seluas 12×8 meter dengan konsep modern industrial untuk menampilkan lini produk terbaru klien. Pengerjaan diselesaikan dalam 21 hari kerja, mulai dari konsultasi, render 3D, produksi material, hingga instalasi on-site.',
-        'eo_pf_featured_point_1'  => 'Konstruksi dua lantai dengan tangga akses pengunjung VIP',
-        'eo_pf_featured_point_2'  => 'Lighting LED custom dengan kontrol intensitas otomatis',
-        'eo_pf_featured_point_3'  => 'Branding cetak digital high-resolution di seluruh panel',
-        'eo_pf_featured_point_4'  => 'Area diskusi tertutup berkapasitas 8 orang',
+    // ============ 6c. Buat 12 Project Posts (CPT 'project') ============
+    $cat_map = array(
+        'booth'    => 'booth-pameran',
+        'pameran'  => 'konstruksi-pameran',
+        'interior' => 'interior-desain',
+        'event'    => 'event-organizer',
     );
-    foreach ( $pf_featured as $key => $value ) {
-        if ( get_theme_mod( $key ) === false || get_theme_mod( $key ) === '' ) {
-            set_theme_mod( $key, $value );
-        }
-    }
 
-    $pf_items = array(
-        1  => array( 'booth',    'Booth Pameran Otomotif',     'PT Otomotif Nasional', '2025', 'JEC Yogyakarta',    'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=900&q=80' ),
-        2  => array( 'pameran',  'Pameran UMKM Yogyakarta',    'Disperindag DIY',      '2025', 'Jogja Expo Center', 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80' ),
-        3  => array( 'interior', 'Showroom Furniture Premium', 'PT Furnitur Jaya',     '2024', 'Jl. Magelang KM 7', 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' ),
-        4  => array( 'event',    'Corporate Gathering 500 Pax','PLN UID Yogyakarta',   '2024', 'Hotel Tentrem',     'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80' ),
-        5  => array( 'booth',    'Booth Trade Show Properti',  'Asosiasi Properti DIY','2025', 'Sahid Raya Hotel',  'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=900&q=80' ),
-        6  => array( 'event',    'Launching Produk Smartphone','Brand Nasional',       '2024', 'Plaza Ambarrukmo',  'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80' ),
-        7  => array( 'pameran',  'Pameran Pendidikan UGM',     'UGM Expo',             '2024', 'Grha Sabha Pramana','https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80' ),
-        8  => array( 'interior', 'Kantor Co-Working Modern',   'Startup Yogyakarta',   '2024', 'Sleman City Hall',  'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80' ),
-        9  => array( 'booth',    'Booth Aktivasi Brand FMCG',  'Mall Jogja',           '2025', 'Hartono Mall',      'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900&q=80' ),
-        10 => array( 'event',    'Seminar Nasional Konstruksi','Asosiasi Kontraktor',  '2024', 'Royal Ambarrukmo',  'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80' ),
-        11 => array( 'interior', 'Cafe & Resto Boutique',      'Klien Pribadi',        '2024', 'Jl. Kaliurang KM 6','https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=80' ),
-        12 => array( 'pameran',  'Pameran Kerajinan Lokal',    'Dinas Pariwisata DIY', '2025', 'JEC Yogyakarta',    'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80' ),
+    $projects_seed = array(
+        array(
+            'title'    => 'Booth Pameran Otomotif Nasional',
+            'cat'      => 'booth',
+            'client'   => 'PT Otomotif Nasional',
+            'year'     => '2025',
+            'location' => 'JEC Yogyakarta',
+            'image'    => 'https://images.unsplash.com/photo-1591115765373-5207764f72e7?w=1200&q=80',
+            'featured' => '1',
+            'desc'     => "Booth dua lantai seluas 12×8 meter dengan konsep modern industrial untuk menampilkan lini produk terbaru klien. Pengerjaan diselesaikan dalam 21 hari kerja, mulai dari konsultasi, render 3D, produksi material, hingga instalasi on-site.",
+            'points'   => array(
+                'Konstruksi dua lantai dengan tangga akses pengunjung VIP',
+                'Lighting LED custom dengan kontrol intensitas otomatis',
+                'Branding cetak digital high-resolution di seluruh panel',
+                'Area diskusi tertutup berkapasitas 8 orang',
+            ),
+        ),
+        array( 'title' => 'Pameran UMKM Yogyakarta',     'cat' => 'pameran',  'client' => 'Disperindag DIY',          'year' => '2025', 'location' => 'Jogja Expo Center',    'image' => 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80' ),
+        array( 'title' => 'Showroom Furniture Premium',  'cat' => 'interior', 'client' => 'PT Furnitur Jaya',         'year' => '2024', 'location' => 'Jl. Magelang KM 7',    'image' => 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80' ),
+        array( 'title' => 'Corporate Gathering 500 Pax', 'cat' => 'event',    'client' => 'PLN UID Yogyakarta',       'year' => '2024', 'location' => 'Hotel Tentrem',        'image' => 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=900&q=80' ),
+        array( 'title' => 'Booth Trade Show Properti',   'cat' => 'booth',    'client' => 'Asosiasi Properti DIY',    'year' => '2025', 'location' => 'Sahid Raya Hotel',     'image' => 'https://images.unsplash.com/photo-1531058020387-3be344556be6?w=900&q=80' ),
+        array( 'title' => 'Launching Produk Smartphone', 'cat' => 'event',    'client' => 'Brand Nasional',           'year' => '2024', 'location' => 'Plaza Ambarrukmo',     'image' => 'https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=900&q=80' ),
+        array( 'title' => 'Pameran Pendidikan UGM',      'cat' => 'pameran',  'client' => 'UGM Expo',                 'year' => '2024', 'location' => 'Grha Sabha Pramana',   'image' => 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=900&q=80' ),
+        array( 'title' => 'Kantor Co-Working Modern',    'cat' => 'interior', 'client' => 'Startup Yogyakarta',       'year' => '2024', 'location' => 'Sleman City Hall',     'image' => 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=900&q=80' ),
+        array( 'title' => 'Booth Aktivasi Brand FMCG',   'cat' => 'booth',    'client' => 'Mall Jogja',               'year' => '2025', 'location' => 'Hartono Mall',         'image' => 'https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=900&q=80' ),
+        array( 'title' => 'Seminar Nasional Konstruksi', 'cat' => 'event',    'client' => 'Asosiasi Kontraktor',      'year' => '2024', 'location' => 'Royal Ambarrukmo',     'image' => 'https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=900&q=80' ),
+        array( 'title' => 'Cafe & Resto Boutique',       'cat' => 'interior', 'client' => 'Klien Pribadi',            'year' => '2024', 'location' => 'Jl. Kaliurang KM 6',   'image' => 'https://images.unsplash.com/photo-1521017432531-fbd92d768814?w=900&q=80' ),
+        array( 'title' => 'Pameran Kerajinan Lokal',     'cat' => 'pameran',  'client' => 'Dinas Pariwisata DIY',     'year' => '2025', 'location' => 'JEC Yogyakarta',       'image' => 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=900&q=80' ),
     );
-    foreach ( $pf_items as $i => $d ) {
-        $map = array(
-            "eo_pf_item_{$i}_category" => $d[0],
-            "eo_pf_item_{$i}_title"    => $d[1],
-            "eo_pf_item_{$i}_client"   => $d[2],
-            "eo_pf_item_{$i}_year"     => $d[3],
-            "eo_pf_item_{$i}_location" => $d[4],
-            "eo_pf_item_{$i}_image"    => $d[5],
-        );
-        foreach ( $map as $key => $value ) {
-            if ( get_theme_mod( $key ) === false || get_theme_mod( $key ) === '' ) {
-                set_theme_mod( $key, $value );
+
+    foreach ( $projects_seed as $proj ) {
+        // Skip kalau title sudah ada
+        $existing = new WP_Query( array(
+            'post_type'      => 'project',
+            'title'          => $proj['title'],
+            'post_status'    => 'any',
+            'posts_per_page' => 1,
+        ) );
+        if ( $existing->have_posts() ) { continue; }
+
+        $project_id = wp_insert_post( array(
+            'post_title'   => $proj['title'],
+            'post_status'  => 'publish',
+            'post_type'    => 'project',
+            'post_content' => $proj['desc'] ?? '',
+            'meta_input'   => array(
+                '_eo_demo_imported'    => '1',
+                '_eo_project_client'   => $proj['client'],
+                '_eo_project_year'     => $proj['year'],
+                '_eo_project_location' => $proj['location'],
+                '_eo_project_featured' => $proj['featured'] ?? '0',
+                '_eo_project_image_url'=> $proj['image'], // disimpan untuk reference
+            ),
+        ) );
+
+        if ( $project_id && ! is_wp_error( $project_id ) ) {
+            // Set kategori taxonomy
+            $term_slug = $cat_map[ $proj['cat'] ] ?? null;
+            if ( $term_slug ) {
+                wp_set_object_terms( $project_id, $term_slug, 'project_category' );
             }
+
+            // Highlight points untuk featured project
+            if ( ! empty( $proj['points'] ) ) {
+                foreach ( $proj['points'] as $idx => $point ) {
+                    $i = $idx + 1;
+                    update_post_meta( $project_id, "_eo_project_point_{$i}", $point );
+                }
+            }
+
+            // Note: featured image (thumbnail) tidak bisa di-set otomatis dari URL eksternal
+            // tanpa upload — biarkan klien upload manual via wp-admin Media Library
         }
     }
 
@@ -426,7 +467,7 @@ function eo_demo_import() {
  */
 function eo_demo_clear() {
     $args = array(
-        'post_type'   => array( 'page', 'post' ),
+        'post_type'   => array( 'page', 'post', 'project' ),
         'post_status' => 'any',
         'numberposts' => -1,
         'meta_key'    => '_eo_demo_imported',
